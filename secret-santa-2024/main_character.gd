@@ -9,6 +9,15 @@ const sprite_pixels_offset: int = 7;
 
 func _physics_process(delta: float) -> void:
 
+	if velocity.x != 0 && velocity.y == 0:
+		animation.animation = "running"
+	if velocity.x == 0 && velocity.y == 0:
+		animation.animation = "default"
+	if velocity.y < 0:
+		animation.animation = "jumping"
+	elif velocity.y > 0:
+		animation.animation = "falling"
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -26,7 +35,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-
 	if velocity.x < 0:
 		animation.flip_h = true;
 		animation.position.x = -sprite_pixels_offset;

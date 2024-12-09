@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://pbnew223mw5e"]
+[gd_scene load_steps=25 format=3 uid="uid://pbnew223mw5e"]
 
 [ext_resource type="Script" path="res://main_character.gd" id="1_3jlye"]
 [ext_resource type="Texture2D" uid="uid://t86vpkhgnl0" path="res://Images/Warrior_Sheet-Effect.png" id="2_ynmqa"]
@@ -26,6 +26,18 @@ region = Rect2(276, 0, 69, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kxwt"]
 atlas = ExtResource("2_ynmqa")
 region = Rect2(345, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgo7d"]
+atlas = ExtResource("2_ynmqa")
+region = Rect2(276, 308, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6l67"]
+atlas = ExtResource("2_ynmqa")
+region = Rect2(345, 308, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r8uf"]
+atlas = ExtResource("2_ynmqa")
+region = Rect2(0, 352, 69, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yffik"]
 atlas = ExtResource("2_ynmqa")
@@ -98,6 +110,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_wgo7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6l67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r8uf")
+}],
+"loop": true,
+"name": &"falling",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yffik")
 }, {
 "duration": 1.0,
@@ -150,7 +176,7 @@ script = ExtResource("1_3jlye")
 position = Vector2(7, 0)
 sprite_frames = SubResource("SpriteFrames_cdwgg")
 autoplay = "default"
-frame_progress = 0.685699
+frame_progress = 0.664115
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
