@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://2hsnhu20ukjy"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_0p6m3"]
+[ext_resource type="Texture2D" uid="uid://birwn4avs581j" path="res://Images/Skull Boy 99x46.png" id="1_cc6rb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccs8i"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(0, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl16r"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(99, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pyno"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(198, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utf52"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(297, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebjuy"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(396, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyg17"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(495, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cotin"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(594, 0, 99, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aynqp"]
+atlas = ExtResource("1_cc6rb")
+region = Rect2(693, 0, 99, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_546t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccs8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl16r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pyno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utf52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebjuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyg17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cotin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aynqp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ascia"]
+size = Vector2(17, 23)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_0p6m3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_546t5")
+autoplay = "default"
+frame = 5
+frame_progress = 0.0798172
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 10.5)
+shape = SubResource("RectangleShape2D_ascia")

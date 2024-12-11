@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://di4stj63ej6np"]
+[gd_scene load_steps=6 format=4 uid="uid://di4stj63ej6np"]
 
 [ext_resource type="PackedScene" uid="uid://pbnew223mw5e" path="res://main_character.tscn" id="1_52cma"]
 [ext_resource type="Texture2D" uid="uid://bp0ncm1t437ar" path="res://Images/mainlev_build.png" id="2_5n6yu"]
+[ext_resource type="PackedScene" uid="uid://2hsnhu20ukjy" path="res://enemy.tscn" id="3_fia1h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfy7r"]
 texture = ExtResource("2_5n6yu")
@@ -933,12 +934,15 @@ sources/0 = SubResource("TileSetAtlasSource_cfy7r")
 
 [node name="MainScene" type="Node2D"]
 
-[node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
-
-[node name="Camera2D" type="Camera2D" parent="MainCharacter"]
-zoom = Vector2(1.5, 1.5)
-
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAD3/wIAAAAVABYAAAD3/wMAAAAVABcAAAD3/wQAAAAVABgAAAD4/wIAAAAWABYAAAD4/wMAAAAWABcAAAD4/wQAAAAWABgAAAD5/wIAAAAYABYAAAD5/wMAAAAYABcAAAD5/wQAAAAYABgAAAD6/wIAAAAZABYAAAD6/wMAAAAZABcAAAD6/wQAAAAZABgAAAD7/wIAAAAYABYAAAD7/wMAAAAYABcAAAD7/wQAAAAYABgAAAD8/wIAAAAZABYAAAD8/wMAAAAZABcAAAD8/wQAAAAZABgAAAD9/wIAAAAVABYAAAD9/wMAAAAVABcAAAD9/wQAAAAVABgAAAD+/wIAAAAWABYAAAD+/wMAAAAWABcAAAD+/wQAAAAWABgAAAD//wIAAAAbABYAAAD//wMAAAAbABcAAAD//wQAAAAbABgAAAAAAAIAAAAcABYAAAAAAAMAAAAcABcAAAAAAAQAAAAcABgAAAABAAIAAAAVABYAAAABAAMAAAAVABcAAAABAAQAAAAVABgAAAACAAIAAAAWABYAAAACAAMAAAAWABcAAAACAAQAAAAWABgAAAADAAIAAAAbABYAAAADAAMAAAAbABcAAAADAAQAAAAbABgAAAAEAAIAAAAcABYAAAAEAAMAAAAcABcAAAAEAAQAAAAcABgAAAAFAAIAAAAOABYAAAAFAAMAAAAOABcAAAAFAAQAAAAOABgAAAAGAAIAAAAPABYAAAAGAAMAAAAPABcAAAAGAAQAAAAPABgAAAAHAAIAAAAVABYAAAAHAAMAAAAVABcAAAAHAAQAAAAVABgAAAAIAAIAAAAWABYAAAAIAAMAAAAWABcAAAAIAAQAAAAWABgAAAAJAAIAAAAOABYAAAAJAAMAAAAOABcAAAAJAAQAAAAOABgAAAAKAAIAAAAPABYAAAAKAAMAAAAPABcAAAAKAAQAAAAPABgAAAA=")
 tile_set = SubResource("TileSet_rcmty")
+
+[node name="Enemy" parent="." instance=ExtResource("3_fia1h")]
+position = Vector2(90, 6)
+
+[node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
+
+[node name="Camera2D" type="Camera2D" parent="MainCharacter"]
+zoom = Vector2(1.5, 1.5)
