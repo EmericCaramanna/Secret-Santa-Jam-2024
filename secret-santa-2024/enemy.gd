@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var hp = 10.0
@@ -14,9 +13,13 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage: float) -> void:
 	hp -= damage
-	animation.play("hurting")
-
+	if hp > 0:
+		animation.play("hurting")
+	else:
+		animation.play("dying")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animation.animation == "hurting":
 		animation.play("default")
+	elif animation.animation == "dying":
+		queue_free()

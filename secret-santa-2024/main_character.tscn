@@ -347,7 +347,7 @@ shape = SubResource("RectangleShape2D_2xhjb")
 [node name="AttackArea" type="Area2D" parent="."]
 
 [node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(25.75, 3)
+position = Vector2(25, 3)
 shape = SubResource("RectangleShape2D_55n0a")
 
 [connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]

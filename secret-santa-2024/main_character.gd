@@ -6,8 +6,10 @@ const SPEED_DURING_ATTACK = 30.0
 const MOVE_TOWARD_SPEED = 25.0
 const JUMP_VELOCITY = -400.0
 @onready var animation: AnimatedSprite2D = $Animation
-const sprite_pixels_offset: int = 7;
-var is_attacking = false;
+const sprite_pixels_offset: int = 7
+const attack_collision_offset: int = 25
+var is_attacking = false
+@onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
 
 func _physics_process(delta: float) -> void:
 	if !is_attacking:
@@ -42,10 +44,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if velocity.x < 0:
 		animation.flip_h = true;
-		animation.position.x = -sprite_pixels_offset;
+		animation.position.x = -sprite_pixels_offset
+		attack_collision.position.x = -attack_collision_offset
 	if velocity.x > 0:
 		animation.flip_h = false;
-		animation.position.x = sprite_pixels_offset;
+		animation.position.x = sprite_pixels_offset
+		attack_collision.position.x = attack_collision_offset
 
 func attack() -> void:
 	for area in $AttackArea.get_overlapping_bodies():
