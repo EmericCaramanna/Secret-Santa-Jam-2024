@@ -197,7 +197,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qr7al")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 15.0
 }, {
@@ -261,7 +261,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_in54x")
 }],
-"loop": true,
+"loop": false,
 "name": &"double_attack",
 "speed": 15.0
 }, {
@@ -334,9 +334,9 @@ position = Vector2(7, 0)
 sprite_frames = SubResource("SpriteFrames_cdwgg")
 animation = &"double_attack"
 autoplay = "default"
-frame = 5
-frame_progress = 0.111459
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_2xhjb")
+
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
