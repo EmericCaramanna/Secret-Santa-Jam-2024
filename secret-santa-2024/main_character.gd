@@ -19,12 +19,8 @@ func _physics_process(delta: float) -> void:
 			animation.animation = "jumping"
 		elif velocity.y > 0:
 			animation.animation = "falling"
-
-	# Add the gravity.
 	if !is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Handle jump.
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("attack") && is_on_floor():
@@ -35,8 +31,6 @@ func _physics_process(delta: float) -> void:
 		if !is_attacking:
 			animation.animation = "attack"
 		is_attacking = true
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("left", "right")
 	if direction:
 		if !is_attacking:
@@ -45,7 +39,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED_DURING_ATTACK
 	else:
 		velocity.x = move_toward(velocity.x, 0, MOVE_TOWARD_SPEED)
-
 	move_and_slide()
 	if velocity.x < 0:
 		animation.flip_h = true;
@@ -54,8 +47,16 @@ func _physics_process(delta: float) -> void:
 		animation.flip_h = false;
 		animation.position.x = sprite_pixels_offset;
 
+func attack() -> void:
+	for area in $AttackArea.get_overlapping_bodies():
+		print("atttack")
+		area.take_damage(5)
 
 func _on_animation_animation_finished() -> void:
 	if is_attacking:
 		animation.play("default")
 		is_attacking = false;
+
+func _on_animation_frame_changed() -> void:
+	if is_attacking && (animation.frame == 5 || animation.frame == 9):
+		attack()
