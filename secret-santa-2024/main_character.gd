@@ -1,23 +1,36 @@
 extends CharacterBody2D
 
-
 const SPEED = 200.0
 const SPEED_DURING_ATTACK = 30.0
 const MOVE_TOWARD_SPEED = 25.0
 const JUMP_VELOCITY = -400.0
+const SPRITE_PIXEL_OFFSET: int = 7
+const ATTACK_COLLISION_OFFSET: int = 25
+const DASH_SPEED = 2000.0
+
 @onready var animation: AnimatedSprite2D = $Animation
-const sprite_pixels_offset: int = 7
-const attack_collision_offset: int = 25
+@onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
+
 var is_attacking = false
 var is_hurting = false
+var is_dashing = false
+
 var hp = 10
-@onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
 var spawn_position: Vector2
 
 func _ready() -> void:
 	spawn_position = position
 
-func alive(delta: float) -> void:
+func dash() -> void:
+	if Input.is_action_just_pressed("dash") && !is_dashing:
+		is_dashing = true
+		if animation.flip_h:
+			velocity = Vector2.LEFT * DASH_SPEED
+		else:
+			velocity = Vector2.RIGHT * DASH_SPEED
+		$DashTimer.start()
+
+func alive() -> void:
 	if !is_attacking && !is_hurting:
 		if velocity.x != 0 && velocity.y == 0:
 			animation.animation = "running"
@@ -45,22 +58,23 @@ func alive(delta: float) -> void:
 			velocity.x = direction * SPEED_DURING_ATTACK
 	else:
 		velocity.x = move_toward(velocity.x, 0, MOVE_TOWARD_SPEED)
+	dash()
 	move_and_slide()
 
 func _physics_process(delta: float) -> void:
 	if hp > 0:
-		alive(delta)
+		alive()
 	if !is_on_floor():
 		velocity += get_gravity() * delta
 	if velocity.x < 0:
 		animation.flip_h = true;
-		animation.position.x = -sprite_pixels_offset
-		attack_collision.position.x = -attack_collision_offset
+		animation.position.x = -SPRITE_PIXEL_OFFSET
+		attack_collision.position.x = -ATTACK_COLLISION_OFFSET
 	if velocity.x > 0:
 		animation.flip_h = false;
-		animation.position.x = sprite_pixels_offset
-		attack_collision.position.x = attack_collision_offset
-
+		animation.position.x = SPRITE_PIXEL_OFFSET
+		attack_collision.position.x = ATTACK_COLLISION_OFFSET
+		
 func take_damage(damage: float) -> void:
 	hp -= damage
 	if hp > 0:
@@ -92,4 +106,9 @@ func respawn_character() -> void:
 	is_attacking = false
 	is_hurting = false
 	hp = 10
+	animation.play("default")
+
+
+func _on_dash_timer_timeout() -> void:
+	is_dashing = false
 	animation.play("default")
