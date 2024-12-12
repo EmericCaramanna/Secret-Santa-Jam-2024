@@ -10,9 +10,14 @@ const sprite_pixels_offset: int = 7
 const attack_collision_offset: int = 25
 var is_attacking = false
 var is_hurting = false
+var hp = 10
 @onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
+var spawn_position: Vector2
 
-func _physics_process(delta: float) -> void:
+func _ready() -> void:
+	spawn_position = position
+
+func alive(delta: float) -> void:
 	if !is_attacking && !is_hurting:
 		if velocity.x != 0 && velocity.y == 0:
 			animation.animation = "running"
@@ -22,8 +27,6 @@ func _physics_process(delta: float) -> void:
 			animation.animation = "jumping"
 		elif velocity.y > 0:
 			animation.animation = "falling"
-	if !is_on_floor():
-		velocity += get_gravity() * delta
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("attack") && is_on_floor():
@@ -43,6 +46,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, MOVE_TOWARD_SPEED)
 	move_and_slide()
+
+func _physics_process(delta: float) -> void:
+	if hp > 0:
+		alive(delta)
+	if !is_on_floor():
+		velocity += get_gravity() * delta
 	if velocity.x < 0:
 		animation.flip_h = true;
 		animation.position.x = -sprite_pixels_offset
@@ -53,9 +62,13 @@ func _physics_process(delta: float) -> void:
 		attack_collision.position.x = attack_collision_offset
 
 func take_damage(damage: float) -> void:
-	animation.play("hurting")
-	is_hurting = true
-	is_attacking = false
+	hp -= damage
+	if hp > 0:
+		animation.play("hurting")
+		is_hurting = true
+		is_attacking = false
+	else:
+		animation.play("dying")
 
 func attack() -> void:
 	for area in $AttackArea.get_overlapping_bodies():
@@ -67,7 +80,16 @@ func _on_animation_animation_finished() -> void:
 		animation.play("default")
 		is_attacking = false
 		is_hurting = false
+	elif animation.animation == "dying":
+		respawn_character()
 
 func _on_animation_frame_changed() -> void:
 	if is_attacking && (animation.frame == 5 || animation.frame == 9):
 		attack()
+
+func respawn_character() -> void:
+	position = spawn_position
+	is_attacking = false
+	is_hurting = false
+	hp = 10
+	animation.play("default")
