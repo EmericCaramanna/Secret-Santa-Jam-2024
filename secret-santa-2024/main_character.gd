@@ -3,10 +3,11 @@ extends CharacterBody2D
 const SPEED = 200.0
 const SPEED_DURING_ATTACK = 30.0
 const MOVE_TOWARD_SPEED = 25.0
+const MOVE_TOWARD_SPEED_DASH = 200.0
 const JUMP_VELOCITY = -400.0
 const SPRITE_PIXEL_OFFSET: int = 7
 const ATTACK_COLLISION_OFFSET: int = 25
-const DASH_SPEED = 2000.0
+const DASH_SPEED = 500.0
 
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
@@ -28,10 +29,10 @@ func dash() -> void:
 			velocity = Vector2.LEFT * DASH_SPEED
 		else:
 			velocity = Vector2.RIGHT * DASH_SPEED
-		$DashTimer.start()
+		animation.play("dashing")
 
 func alive() -> void:
-	if !is_attacking && !is_hurting:
+	if !is_attacking && !is_hurting && !is_dashing:
 		if velocity.x != 0 && velocity.y == 0:
 			animation.animation = "running"
 		if velocity.x == 0 && velocity.y == 0:
@@ -50,14 +51,15 @@ func alive() -> void:
 		if !is_attacking:
 			animation.animation = "attack"
 		is_attacking = true
-	var direction := Input.get_axis("left", "right")
-	if direction:
-		if !is_attacking && !is_hurting:
-			velocity.x = direction * SPEED
+	if !is_dashing:
+		var direction := Input.get_axis("left", "right")
+		if direction:
+			if !is_attacking && !is_hurting:
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = direction * SPEED_DURING_ATTACK
 		else:
-			velocity.x = direction * SPEED_DURING_ATTACK
-	else:
-		velocity.x = move_toward(velocity.x, 0, MOVE_TOWARD_SPEED)
+			velocity.x = move_toward(velocity.x, 0, MOVE_TOWARD_SPEED)
 	dash()
 	move_and_slide()
 
@@ -90,7 +92,11 @@ func attack() -> void:
 			area.take_damage(5)
 
 func _on_animation_animation_finished() -> void:
-	if is_attacking || is_hurting:
+	if is_dashing:
+		velocity.x = 0
+		is_dashing = false
+		animation.play("default")
+	elif is_attacking || is_hurting:
 		animation.play("default")
 		is_attacking = false
 		is_hurting = false
@@ -108,7 +114,6 @@ func respawn_character() -> void:
 	hp = 10
 	animation.play("default")
 
-
 func _on_dash_timer_timeout() -> void:
-	is_dashing = false
+	print("end")
 	animation.play("default")
