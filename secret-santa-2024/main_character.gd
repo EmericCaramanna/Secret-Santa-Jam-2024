@@ -108,7 +108,6 @@ func _on_animation_animation_finished() -> void:
 func _on_animation_frame_changed() -> void:
 	if is_attacking && ((animation.frame == 5 || animation.frame == 9) || (is_dashing && animation.frame == 3)):
 		attack()
-		
 
 func respawn_character() -> void:
 	position = spawn_position

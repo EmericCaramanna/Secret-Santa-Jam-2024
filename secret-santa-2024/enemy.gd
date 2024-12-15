@@ -14,10 +14,10 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	if hp > 0 && !is_hurt && !is_attacking:
 		velocity.x = SPEED * direction
-		if !$RayCast2D.is_colliding() && is_on_floor():
+		move_and_slide()
+		if !$RayCast2D.is_colliding() && is_on_floor() || velocity.x == 0:
 			scale.x = abs(scale.x) * -1
 			direction = -direction
-		move_and_slide()
 		if velocity.x != 0:
 			animation.animation = "running"
 		else:
@@ -27,7 +27,6 @@ func _physics_process(delta: float) -> void:
 				is_attacking = true
 				animation.play("attacking")
 				break
-
 
 func take_damage(damage: float) -> void:
 	hp -= damage

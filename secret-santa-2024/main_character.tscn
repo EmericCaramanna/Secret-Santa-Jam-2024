@@ -567,8 +567,6 @@ position = Vector2(7, 0)
 sprite_frames = SubResource("SpriteFrames_cdwgg")
 animation = &"dash_attacking"
 autoplay = "default"
-frame = 7
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
