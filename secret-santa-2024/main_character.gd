@@ -49,7 +49,10 @@ func alive() -> void:
 			animation.animation = "double_attack"
 			animation.frame = frame
 		if !is_attacking:
-			animation.animation = "attack"
+			if !is_dashing:
+				animation.animation = "attack"
+			else:
+				animation.play("dash_attacking")
 		is_attacking = true
 	if !is_dashing:
 		var direction := Input.get_axis("left", "right")
@@ -92,20 +95,20 @@ func attack() -> void:
 			area.take_damage(5)
 
 func _on_animation_animation_finished() -> void:
-	if is_dashing:
-		velocity.x = 0
-		is_dashing = false
-		animation.play("default")
-	elif is_attacking || is_hurting:
+	if is_attacking || is_hurting || is_dashing:
+		if is_dashing:
+			velocity.x = 0
 		animation.play("default")
 		is_attacking = false
 		is_hurting = false
+		is_dashing = false
 	elif animation.animation == "dying":
 		respawn_character()
 
 func _on_animation_frame_changed() -> void:
-	if is_attacking && (animation.frame == 5 || animation.frame == 9):
+	if is_attacking && ((animation.frame == 5 || animation.frame == 9) || (is_dashing && animation.frame == 3)):
 		attack()
+		
 
 func respawn_character() -> void:
 	position = spawn_position

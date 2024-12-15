@@ -942,7 +942,6 @@ tile_set = SubResource("TileSet_rcmty")
 [node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter"]
-zoom = Vector2(1.5, 1.5)
 
 [node name="Enemy" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(-157, 5)
