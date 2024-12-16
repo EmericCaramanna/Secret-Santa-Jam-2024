@@ -16,8 +16,11 @@ var is_attacking = false
 var is_hurting = false
 var is_dashing = false
 
-var hp = 10
+var max_hp = 10
+var hp = max_hp
 var spawn_position: Vector2
+
+signal health_updated(new_value)
 
 func _ready() -> void:
 	spawn_position = position
@@ -82,6 +85,7 @@ func _physics_process(delta: float) -> void:
 		
 func take_damage(damage: float) -> void:
 	hp -= damage
+	health_updated.emit(hp/max_hp * 100)
 	if hp > 0:
 		animation.play("hurting")
 		is_hurting = true
@@ -102,7 +106,7 @@ func _on_animation_animation_finished() -> void:
 		is_attacking = false
 		is_hurting = false
 		is_dashing = false
-	elif animation.animation == "dying":
+	if animation.animation == "dying":
 		respawn_character()
 
 func _on_animation_frame_changed() -> void:
@@ -113,7 +117,9 @@ func respawn_character() -> void:
 	position = spawn_position
 	is_attacking = false
 	is_hurting = false
-	hp = 10
+	is_dashing = false
+	hp = max_hp
+	health_updated.emit(100)
 	animation.play("default")
 
 func _on_dash_timer_timeout() -> void:
