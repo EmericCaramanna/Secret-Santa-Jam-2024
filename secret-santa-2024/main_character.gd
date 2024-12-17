@@ -43,7 +43,6 @@ func give_xp(xp_value: float) -> void:
 	xp += xp_value
 	if xp >= max_xp:
 		xp = level_up(xp)
-	print(xp)
 	xp_updated.emit(xp/max_xp * 100.0)
 
 func dash() -> void:
