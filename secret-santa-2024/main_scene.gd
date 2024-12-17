@@ -17,7 +17,7 @@ func _on_main_character_health_updated(new_value: Variant) -> void:
 	if new_value == 100.0:
 		health_bar.visible = false
 
-func _on_enemy_died(xp: Variant) -> void:
+func enemy_died(xp: float) -> void:
 	main_character.give_xp(xp)
 
 func _on_main_character_xp_updated(new_value: Variant) -> void:

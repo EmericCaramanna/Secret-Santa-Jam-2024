@@ -3,7 +3,7 @@ extends CharacterBody2D
 const SPEED = 20.0
 const JUMP_VELOCITY = -400.0
 const MAX_HP = 10.0
-const XP_TO_GIVE = 60.0
+const XP_TO_GIVE = 6.0
 
 var hp = 10.0
 var direction = 1
@@ -37,9 +37,13 @@ func _physics_process(delta: float) -> void:
 				break
 
 func take_damage(damage: float) -> void:
+	if hp <= 0:
+		return
 	hp -= damage
 	health_bar.visible = true
 	health_bar.value = hp / MAX_HP * 100.0
+	if hp <= 0:
+		get_parent().enemy_died(XP_TO_GIVE)
 	is_hurt = true
 	is_attacking = false
 	animation.play("hurting")
@@ -54,7 +58,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		if hp <= 0:
 			animation.play("dying")
 	elif animation.animation == "dying":
-		died.emit(XP_TO_GIVE)
 		queue_free()
 
 func _on_attack_area_body_entered(body: Node2D) -> void:

@@ -19,6 +19,7 @@ var is_dashing = false
 
 var max_hp = 10
 var hp = max_hp
+var max_xp = 10
 var xp = 0
 var spawn_position: Vector2
 var level = 1
@@ -34,13 +35,16 @@ func level_up(xp_value: float) -> float:
 	max_hp *= level
 	hp = max_hp
 	health_updated.emit(hp / max_hp * 100)
-	return xp - 100
+	var ret = xp - max_xp
+	max_xp *= level
+	return ret
 
 func give_xp(xp_value: float) -> void:
 	xp += xp_value
-	if xp >= 100:
+	if xp >= max_xp:
 		xp = level_up(xp)
-	xp_updated.emit(xp)
+	print(xp)
+	xp_updated.emit(xp/max_xp * 100.0)
 
 func dash() -> void:
 	if Input.is_action_just_pressed("dash") && !is_dashing:
@@ -101,6 +105,8 @@ func _physics_process(delta: float) -> void:
 		attack_collision.position.x = ATTACK_COLLISION_OFFSET
 		
 func take_damage(damage: float) -> void:
+	if hp <= 0:
+		return
 	hp -= damage
 	health_updated.emit(hp/max_hp * 100)
 	if hp > 0:
