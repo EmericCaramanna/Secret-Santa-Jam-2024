@@ -8,6 +8,7 @@ const JUMP_VELOCITY = -400.0
 const SPRITE_PIXEL_OFFSET: int = 7
 const ATTACK_COLLISION_OFFSET: int = 25
 const DASH_SPEED = 500.0
+const BASE_DAMAGE = 5.0
 
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var attack_collision: CollisionShape2D = $AttackArea/AttackCollision
@@ -18,12 +19,28 @@ var is_dashing = false
 
 var max_hp = 10
 var hp = max_hp
+var xp = 0
 var spawn_position: Vector2
+var level = 1
 
 signal health_updated(new_value)
+signal xp_updated(new_value)
 
 func _ready() -> void:
 	spawn_position = position
+
+func level_up(xp_value: float) -> float:
+	level += 1
+	max_hp *= level
+	hp = max_hp
+	health_updated.emit(hp / max_hp * 100)
+	return xp - 100
+
+func give_xp(xp_value: float) -> void:
+	xp += xp_value
+	if xp >= 100:
+		xp = level_up(xp)
+	xp_updated.emit(xp)
 
 func dash() -> void:
 	if Input.is_action_just_pressed("dash") && !is_dashing:
@@ -96,7 +113,7 @@ func take_damage(damage: float) -> void:
 func attack() -> void:
 	for area in $AttackArea.get_overlapping_bodies():
 		if area.has_method("take_damage"):
-			area.take_damage(5)
+			area.take_damage(BASE_DAMAGE * level)
 
 func _on_animation_animation_finished() -> void:
 	if is_attacking || is_hurting || is_dashing:

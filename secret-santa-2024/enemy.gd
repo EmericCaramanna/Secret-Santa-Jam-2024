@@ -3,12 +3,18 @@ extends CharacterBody2D
 const SPEED = 20.0
 const JUMP_VELOCITY = -400.0
 const MAX_HP = 10.0
+const XP_TO_GIVE = 60.0
+
 var hp = 10.0
 var direction = 1
+
 var is_hurt = false
 var is_attacking = false
+
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var health_bar: TextureProgressBar = $HealthBar
+
+signal died(xp)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -48,6 +54,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		if hp <= 0:
 			animation.play("dying")
 	elif animation.animation == "dying":
+		died.emit(XP_TO_GIVE)
 		queue_free()
 
 func _on_attack_area_body_entered(body: Node2D) -> void:

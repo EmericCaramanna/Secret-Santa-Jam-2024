@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://di4stj63ej6np"]
+[gd_scene load_steps=11 format=4 uid="uid://di4stj63ej6np"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_4sd6q"]
 [ext_resource type="PackedScene" uid="uid://pbnew223mw5e" path="res://main_character.tscn" id="1_52cma"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://2hsnhu20ukjy" path="res://enemy.tscn" id="3_fia1h"]
 [ext_resource type="Texture2D" uid="uid://b68mhyuowna3d" path="res://Images/under.png" id="4_lya37"]
 [ext_resource type="Texture2D" uid="uid://budrnng3oentf" path="res://Images/Progress.png" id="5_xkkhc"]
+[ext_resource type="Texture2D" uid="uid://bsnrvpqmm7j4a" path="res://Images/xpunder.png" id="6_7jikq"]
+[ext_resource type="Texture2D" uid="uid://bpy805oglmu22" path="res://Images/xpprogress.png" id="7_suwtd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfy7r"]
 texture = ExtResource("2_5n6yu")
@@ -1062,7 +1064,7 @@ While dashing LEFT MOUSE to dash attack"
 [node name="Camera2D" type="Camera2D" parent="MainCharacter"]
 zoom = Vector2(1.2, 1.2)
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="MainCharacter/Camera2D"]
+[node name="HealthBar" type="TextureProgressBar" parent="MainCharacter/Camera2D"]
 visible = false
 offset_left = -256.0
 offset_top = -256.0
@@ -1074,6 +1076,17 @@ nine_patch_stretch = true
 texture_under = ExtResource("4_lya37")
 texture_progress = ExtResource("5_xkkhc")
 
+[node name="XPBar" type="TextureProgressBar" parent="MainCharacter/Camera2D"]
+offset_left = -256.0
+offset_top = -264.0
+offset_right = 256.0
+offset_bottom = -261.0
+fill_mode = 6
+nine_patch_stretch = true
+texture_under = ExtResource("6_7jikq")
+texture_progress = ExtResource("7_suwtd")
+metadata/_edit_use_anchors_ = true
+
 [node name="Enemy" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(265, 10)
 
@@ -1084,3 +1097,7 @@ position = Vector2(890, 353)
 position = Vector2(819, 349)
 
 [connection signal="health_updated" from="MainCharacter" to="." method="_on_main_character_health_updated"]
+[connection signal="xp_updated" from="MainCharacter" to="." method="_on_main_character_xp_updated"]
+[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]
+[connection signal="died" from="Enemy2" to="." method="_on_enemy_died"]
+[connection signal="died" from="Enemy3" to="." method="_on_enemy_died"]
