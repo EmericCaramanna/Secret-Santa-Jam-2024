@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=4 uid="uid://di4stj63ej6np"]
+[gd_scene load_steps=12 format=4 uid="uid://di4stj63ej6np"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_4sd6q"]
 [ext_resource type="PackedScene" uid="uid://pbnew223mw5e" path="res://main_character.tscn" id="1_52cma"]
 [ext_resource type="Texture2D" uid="uid://bp0ncm1t437ar" path="res://Images/mainlev_build.png" id="2_5n6yu"]
-[ext_resource type="PackedScene" uid="uid://2hsnhu20ukjy" path="res://enemy.tscn" id="3_fia1h"]
+[ext_resource type="PackedScene" uid="uid://2hsnhu20ukjy" path="res://skeleton.tscn" id="3_fia1h"]
 [ext_resource type="Texture2D" uid="uid://b68mhyuowna3d" path="res://Images/under.png" id="4_lya37"]
 [ext_resource type="Texture2D" uid="uid://budrnng3oentf" path="res://Images/Progress.png" id="5_xkkhc"]
 [ext_resource type="Texture2D" uid="uid://bsnrvpqmm7j4a" path="res://Images/xpunder.png" id="6_7jikq"]
 [ext_resource type="Texture2D" uid="uid://bpy805oglmu22" path="res://Images/xpprogress.png" id="7_suwtd"]
+[ext_resource type="PackedScene" uid="uid://bplorwyw7f5wm" path="res://ogre.tscn" id="9_crs66"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfy7r"]
 texture = ExtResource("2_5n6yu")
@@ -1060,7 +1061,7 @@ RIGHT MOUSE to dash
 While dashing LEFT MOUSE to dash attack"
 
 [node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
-position = Vector2(142, 157)
+position = Vector2(-280, 2929)
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter"]
 zoom = Vector2(1.2, 1.2)
@@ -1088,6 +1089,15 @@ texture_under = ExtResource("6_7jikq")
 texture_progress = ExtResource("7_suwtd")
 metadata/_edit_use_anchors_ = true
 
+[node name="Info" type="RichTextLabel" parent="MainCharacter/Camera2D"]
+offset_left = -476.0
+offset_top = 196.0
+offset_right = -278.0
+offset_bottom = 267.0
+text = "Level 
+HP
+XP"
+
 [node name="Skeleton" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(265, 10)
 
@@ -1105,6 +1115,14 @@ position = Vector2(-190, 1264)
 
 [node name="Skeleton6" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(1170, 1129)
+
+[node name="Ogre" parent="." instance=ExtResource("9_crs66")]
+position = Vector2(606, 2855)
+scale = Vector2(2, 2)
+
+[node name="Ogre2" parent="." instance=ExtResource("9_crs66")]
+position = Vector2(446, 2914)
+scale = Vector2(2, 2)
 
 [connection signal="health_updated" from="MainCharacter" to="." method="_on_main_character_health_updated"]
 [connection signal="xp_updated" from="MainCharacter" to="." method="_on_main_character_xp_updated"]

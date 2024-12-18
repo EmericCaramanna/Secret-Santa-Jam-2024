@@ -17,12 +17,13 @@ var is_attacking = false
 var is_hurting = false
 var is_dashing = false
 
-var max_hp = 10
-var hp = max_hp
-var max_xp = 10
-var xp = 0
+@export var max_hp = 10
+@export var hp = max_hp
+@export var max_xp = 10
+@export var xp = 0
+@export var level = 1
+
 var spawn_position: Vector2
-var level = 1
 
 signal health_updated(new_value)
 signal xp_updated(new_value)
@@ -121,13 +122,14 @@ func attack() -> void:
 			area.take_damage(BASE_DAMAGE * level)
 
 func _on_animation_animation_finished() -> void:
-	if is_attacking || is_hurting || is_dashing:
-		if is_dashing:
-			velocity.x = 0
-		animation.play("default")
-		is_attacking = false
-		is_hurting = false
-		is_dashing = false
+	if hp > 0:
+		if is_attacking || is_hurting || is_dashing:
+			if is_dashing:
+				velocity.x = 0
+			animation.play("default")
+			is_attacking = false
+			is_hurting = false
+			is_dashing = false
 	if animation.animation == "dying":
 		respawn_character()
 

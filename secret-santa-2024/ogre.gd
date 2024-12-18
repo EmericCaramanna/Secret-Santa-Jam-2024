@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
-const SPEED = 20.0
+const SPEED = 50.0
 const JUMP_VELOCITY = -400.0
-const MAX_HP = 10.0
-const XP_TO_GIVE = 6.0
+const MAX_HP = 50.0
+const XP_TO_GIVE = 20.0
+const DAMAGE = 20.0
 
-var hp = 10.0
+var hp = MAX_HP
 var direction = 1
 
 var is_hurt = false
@@ -46,14 +47,13 @@ func take_damage(damage: float) -> void:
 		get_parent().enemy_died(XP_TO_GIVE)
 		$CollisionShape2D.disabled = true
 	is_hurt = true
-	is_attacking = false
 	animation.play("hurting")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if is_attacking:
 		animation.play("default")
 		is_attacking = false;
-	if animation.animation == "hurting":
+	if is_hurt:
 		is_hurt = false
 		animation.play("default")
 		if hp <= 0:
@@ -67,7 +67,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		animation.play("attacking")
 
 func _on_animation_frame_changed() -> void:
-	if $Animation.animation == "attacking" && $Animation.frame == 7:
+	if $Animation.animation == "attacking" && $Animation.frame == 4:
 		for body in $AttackArea.get_overlapping_bodies():
 			if body.name == "MainCharacter" && body.has_method("take_damage"):
-				body.take_damage(5)
+				body.take_damage(DAMAGE)
