@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://di4stj63ej6np"]
+[gd_scene load_steps=13 format=4 uid="uid://di4stj63ej6np"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_4sd6q"]
 [ext_resource type="PackedScene" uid="uid://pbnew223mw5e" path="res://main_character.tscn" id="1_52cma"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bsnrvpqmm7j4a" path="res://Images/xpunder.png" id="6_7jikq"]
 [ext_resource type="Texture2D" uid="uid://bpy805oglmu22" path="res://Images/xpprogress.png" id="7_suwtd"]
 [ext_resource type="PackedScene" uid="uid://bplorwyw7f5wm" path="res://ogre.tscn" id="9_crs66"]
+[ext_resource type="PackedScene" uid="uid://dx0fuofxinhi0" path="res://goblin.tscn" id="10_1ne06"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfy7r"]
 texture = ExtResource("2_5n6yu")
@@ -1061,7 +1062,7 @@ RIGHT MOUSE to dash
 While dashing LEFT MOUSE to dash attack"
 
 [node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
-position = Vector2(-280, 2929)
+position = Vector2(-475, 3386)
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter"]
 zoom = Vector2(1.2, 1.2)
@@ -1140,6 +1141,10 @@ scale = Vector2(2, 2)
 [node name="Ogre4" parent="." instance=ExtResource("9_crs66")]
 position = Vector2(-5, 2883)
 scale = Vector2(2, 2)
+
+[node name="Goblin" parent="." instance=ExtResource("10_1ne06")]
+position = Vector2(-382, 3379)
+scale = Vector2(0.6, 0.6)
 
 [connection signal="health_updated" from="MainCharacter" to="." method="_on_main_character_health_updated"]
 [connection signal="xp_updated" from="MainCharacter" to="." method="_on_main_character_xp_updated"]

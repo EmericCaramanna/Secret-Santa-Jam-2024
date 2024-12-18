@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 50.0
+const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
-const MAX_HP = 50.0
-const XP_TO_GIVE = 20.0
-const DAMAGE = 20.0
+const MAX_HP = 15.0
+const XP_TO_GIVE = 8.0
+const DAMAGE = 5.0
 
 var hp = MAX_HP
 var direction = 1
@@ -17,10 +17,6 @@ var is_attacking = false
 
 signal died(xp)
 
-func flip() -> void:
-	scale.x = abs(scale.x) * -1
-	direction = -direction
-
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -29,7 +25,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = SPEED * direction
 		move_and_slide()
 		if !$RayCast2D.is_colliding() && is_on_floor() || velocity.x == 0:
-			flip()
+			scale.x = abs(scale.x) * -1
+			direction = -direction
 		if velocity.x != 0:
 			animation.animation = "running"
 		else:
@@ -70,7 +67,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		animation.play("attacking")
 
 func _on_animation_frame_changed() -> void:
-	if $Animation.animation == "attacking" && $Animation.frame == 4:
+	if $Animation.animation == "attacking" && $Animation.frame == 6:
 		for body in $AttackArea.get_overlapping_bodies():
 			if body.name == "MainCharacter" && body.has_method("take_damage"):
 				body.take_damage(DAMAGE)
