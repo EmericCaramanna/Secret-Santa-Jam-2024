@@ -1104,31 +1104,51 @@ position = Vector2(265, 10)
 [node name="Skeleton2" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(890, 353)
 
+[node name="Skeleton10" parent="." instance=ExtResource("3_fia1h")]
+position = Vector2(1031, 343)
+
 [node name="Skeleton3" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(819, 349)
 
 [node name="Skeleton4" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(-348, 1096)
 
+[node name="Skeleton7" parent="." instance=ExtResource("3_fia1h")]
+position = Vector2(-246, 1102)
+
 [node name="Skeleton5" parent="." instance=ExtResource("3_fia1h")]
 position = Vector2(-190, 1264)
 
-[node name="Skeleton6" parent="." instance=ExtResource("3_fia1h")]
-position = Vector2(1170, 1129)
+[node name="Skeleton8" parent="." instance=ExtResource("3_fia1h")]
+position = Vector2(-467, 1268)
+
+[node name="Skeleton9" parent="." instance=ExtResource("3_fia1h")]
+position = Vector2(-352, 1268)
 
 [node name="Ogre" parent="." instance=ExtResource("9_crs66")]
 position = Vector2(606, 2855)
 scale = Vector2(2, 2)
 
 [node name="Ogre2" parent="." instance=ExtResource("9_crs66")]
-position = Vector2(446, 2914)
+position = Vector2(603, 3478)
+scale = Vector2(2, 2)
+
+[node name="Ogre3" parent="." instance=ExtResource("9_crs66")]
+position = Vector2(286, 2868)
+scale = Vector2(2, 2)
+
+[node name="Ogre4" parent="." instance=ExtResource("9_crs66")]
+position = Vector2(-5, 2883)
 scale = Vector2(2, 2)
 
 [connection signal="health_updated" from="MainCharacter" to="." method="_on_main_character_health_updated"]
 [connection signal="xp_updated" from="MainCharacter" to="." method="_on_main_character_xp_updated"]
 [connection signal="died" from="Skeleton" to="." method="_on_enemy_died"]
 [connection signal="died" from="Skeleton2" to="." method="_on_enemy_died"]
+[connection signal="died" from="Skeleton10" to="." method="_on_enemy_died"]
 [connection signal="died" from="Skeleton3" to="." method="_on_enemy_died"]
 [connection signal="died" from="Skeleton4" to="." method="_on_enemy_died"]
+[connection signal="died" from="Skeleton7" to="." method="_on_enemy_died"]
 [connection signal="died" from="Skeleton5" to="." method="_on_enemy_died"]
-[connection signal="died" from="Skeleton6" to="." method="_on_enemy_died"]
+[connection signal="died" from="Skeleton8" to="." method="_on_enemy_died"]
+[connection signal="died" from="Skeleton9" to="." method="_on_enemy_died"]

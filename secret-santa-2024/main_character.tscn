@@ -566,7 +566,7 @@ script = ExtResource("1_3jlye")
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(7, 0)
 sprite_frames = SubResource("SpriteFrames_cdwgg")
-animation = &"dash_attacking"
+animation = &"dashing"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -574,6 +574,7 @@ position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_2xhjb")
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(25, 3)

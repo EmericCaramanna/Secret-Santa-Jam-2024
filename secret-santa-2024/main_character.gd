@@ -107,6 +107,8 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: float) -> void:
 	if hp <= 0:
 		return
+	if is_dashing && animation.frame < 4:
+		return
 	hp -= damage
 	health_updated.emit(hp/max_hp * 100)
 	if hp > 0:
