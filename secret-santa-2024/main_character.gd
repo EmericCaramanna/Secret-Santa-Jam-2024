@@ -49,6 +49,7 @@ func give_xp(xp_value: float) -> void:
 func dash() -> void:
 	if Input.is_action_just_pressed("dash") && !is_dashing:
 		is_dashing = true
+		is_attacking = false
 		if animation.flip_h:
 			velocity = Vector2.LEFT * DASH_SPEED
 		else:
@@ -90,6 +91,28 @@ func alive() -> void:
 	dash()
 	move_and_slide()
 
+func sound_handler() -> void:
+	match animation.animation:
+		"running":
+			if animation.frame == 2:
+				if !$Step1.playing:
+					$Step1.play()
+			elif animation.frame == 6:
+				if !$Step2.playing:
+					$Step2.play()
+		"attack":
+			if !$Attack1.playing && animation.frame == 2:
+				$Attack1.play()
+		"double_attack":
+			if !$Attack2.playing && animation.frame == 8:
+				$Attack2.play()
+		"dashing":
+			if !$Dash.playing && animation.frame == 1:
+				$Dash.play()
+		"dash_attacking":
+			if !$Attack2.playing && animation.frame == 2:
+				$Attack2.play()
+
 func _physics_process(delta: float) -> void:
 	if hp > 0:
 		alive()
@@ -103,7 +126,8 @@ func _physics_process(delta: float) -> void:
 		animation.flip_h = false;
 		animation.position.x = SPRITE_PIXEL_OFFSET
 		attack_collision.position.x = ATTACK_COLLISION_OFFSET
-		
+	sound_handler()
+
 func take_damage(damage: float) -> void:
 	if hp <= 0:
 		return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bplorwyw7f5wm"]
+[gd_scene load_steps=33 format=3 uid="uid://bplorwyw7f5wm"]
 
 [ext_resource type="Script" path="res://ogre.gd" id="1_iavru"]
 [ext_resource type="Texture2D" uid="uid://dtaybhcpvl2jh" path="res://Images/ogre-all.png" id="2_2ty25"]
@@ -201,6 +201,9 @@ size = Vector2(46, 54.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ls0vy"]
 size = Vector2(44, 46)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbmfl"]
+size = Vector2(70, 49)
+
 [node name="Ogre" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_iavru")
@@ -224,6 +227,12 @@ target_position = Vector2(0, 26)
 position = Vector2(47, 17)
 shape = SubResource("RectangleShape2D_ls0vy")
 
+[node name="DetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea"]
+position = Vector2(-56, 14.5)
+shape = SubResource("RectangleShape2D_dbmfl")
+
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 visible = false
 offset_left = -25.0
@@ -239,3 +248,4 @@ texture_progress = ExtResource("4_qslu0")
 [connection signal="animation_finished" from="Animation" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Animation" to="." method="_on_animation_frame_changed"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="DetectArea" to="." method="_on_detect_area_body_entered"]
