@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://tw0it5gnlvlj"]
+[gd_scene load_steps=43 format=3 uid="uid://tw0it5gnlvlj"]
 
 [ext_resource type="Script" path="res://dragon.gd" id="1_3hlek"]
 [ext_resource type="Texture2D" uid="uid://dqxhi6fp7dmo2" path="res://Images/Dragon/ATTACK.png" id="2_v05re"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ch5a556sd85ys" path="res://Images/Dragon/WALK.png" id="6_p00ot"]
 [ext_resource type="Texture2D" uid="uid://b68mhyuowna3d" path="res://Images/under.png" id="7_50ni8"]
 [ext_resource type="Texture2D" uid="uid://budrnng3oentf" path="res://Images/Progress.png" id="8_v4r0e"]
+[ext_resource type="Texture2D" uid="uid://dxge1nhrjq73o" path="res://Images/light.png" id="9_ayiqu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oihn5"]
 atlas = ExtResource("2_v05re")
@@ -266,7 +267,7 @@ position = Vector2(-17.5, -3.4375)
 shape = SubResource("RectangleShape2D_ascia")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(26, 16)
+position = Vector2(15, 5)
 target_position = Vector2(0, 26)
 
 [node name="AttackArea" type="Area2D" parent="."]
@@ -292,6 +293,12 @@ fill_mode = 6
 nine_patch_stretch = true
 texture_under = ExtResource("7_50ni8")
 texture_progress = ExtResource("8_v4r0e")
+
+[node name="Firelight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(44, 16)
+color = Color(1, 0.345098, 0, 1)
+texture = ExtResource("9_ayiqu")
 
 [connection signal="animation_finished" from="Animation" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Animation" to="." method="_on_animation_frame_changed"]

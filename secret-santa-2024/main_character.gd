@@ -157,7 +157,7 @@ func _on_animation_animation_finished() -> void:
 			is_hurting = false
 			is_dashing = false
 	if animation.animation == "dying":
-		respawn_character()
+		get_tree().reload_current_scene()
 
 func _on_animation_frame_changed() -> void:
 	if is_attacking && ((animation.frame == 5 || animation.frame == 9) || (is_dashing && animation.frame == 3)):

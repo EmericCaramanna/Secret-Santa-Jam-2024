@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmbk40hweb7rh"
+path="res://.godot/imported/5. Odin's Whisper.mp3-5b9de95f14ea42eeb6c31d14f7a0cfd3.mp3str"
+
+[deps]
+
+source_file="res://audio/5. Odin's Whisper.mp3"
+dest_files=["res://.godot/imported/5. Odin's Whisper.mp3-5b9de95f14ea42eeb6c31d14f7a0cfd3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

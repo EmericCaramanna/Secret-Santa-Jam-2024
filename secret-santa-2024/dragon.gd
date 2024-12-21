@@ -26,6 +26,7 @@ func _ready() -> void:
 func flip() -> void:
 	scale.x = abs(scale.x) * -1
 	direction = -direction
+	global_position.x += 10.0 * direction
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -77,9 +78,12 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 
 func _on_animation_frame_changed() -> void:
 	if $Animation.animation == "attacking" && $Animation.frame > 2 && $Animation.frame < 10:
+		$Firelight.visible = true
 		for body in $AttackArea.get_overlapping_bodies():
 			if body.name == "MainCharacter" && body.has_method("take_damage"):
 				body.take_damage(DAMAGE * multiplier)
+	else:
+		$Firelight.visible = false
 
 
 func _on_detect_area_body_entered(body: Node2D) -> void:
