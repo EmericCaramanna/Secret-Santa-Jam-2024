@@ -245,7 +245,7 @@ animations = [{
 size = Vector2(63, 59.125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ls0vy"]
-size = Vector2(28, 42)
+size = Vector2(45, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dbmfl"]
 size = Vector2(70, 49)
@@ -273,7 +273,7 @@ target_position = Vector2(0, 26)
 [node name="AttackArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(45, 15)
+position = Vector2(36.5, 15)
 shape = SubResource("RectangleShape2D_ls0vy")
 
 [node name="DetectArea" type="Area2D" parent="."]

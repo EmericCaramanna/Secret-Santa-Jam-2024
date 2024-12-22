@@ -85,7 +85,6 @@ func _on_animation_frame_changed() -> void:
 	else:
 		$Firelight.visible = false
 
-
 func _on_detect_area_body_entered(body: Node2D) -> void:
 	if body.name == "MainCharacter" && hp > 0:
 		flip()

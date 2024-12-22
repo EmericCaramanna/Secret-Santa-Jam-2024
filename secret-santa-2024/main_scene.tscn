@@ -1134,7 +1134,6 @@ size = Vector2(158, 62)
 script = ExtResource("1_4sd6q")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -1155,7 +1154,7 @@ RIGHT MOUSE to dash
 While dashing LEFT MOUSE to dash attack"
 
 [node name="MainCharacter" parent="." instance=ExtResource("1_52cma")]
-position = Vector2(-1532, 3585)
+position = Vector2(-435, -27)
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter"]
 zoom = Vector2(1.2, 1.2)

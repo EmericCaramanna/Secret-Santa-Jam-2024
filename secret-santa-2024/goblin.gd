@@ -67,7 +67,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		animation.play("attacking")
 
 func _on_animation_frame_changed() -> void:
-	if $Animation.animation == "attacking" && $Animation.frame == 6:
+	if $Animation.animation == "attacking" && $Animation.frame == 2:
 		for body in $AttackArea.get_overlapping_bodies():
 			if body.name == "MainCharacter" && body.has_method("take_damage"):
 				body.take_damage(DAMAGE)
